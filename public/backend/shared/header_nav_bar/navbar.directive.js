@@ -1,7 +1,7 @@
 import template from './navbar.template.html';
-import {navbarController as controller} from './navbar.controller';
+import {headerController as controller} from './navbar.controller';
 
-export const navBar = () => {
+export const headerNav = () => {
     return {
         template,
         controller,

@@ -71,9 +71,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_angular2.default.module('killerGuns', [_angularRoute2.default, _homepg.homepg.name]).directive('appContainer', _app.appDirective).directive('headerNav', _navbar.navBar);
-
-	console.log(_angular2.default);
+	_angular2.default.module('killerGuns', [_angularRoute2.default, _homepg.homepg.name]).directive('appContainer', _app.appDirective).directive('headerNav', _navbar.headerNav);
 
 /***/ },
 /* 2 */
@@ -32432,7 +32430,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.navBar = undefined;
+	exports.headerNav = undefined;
 
 	var _navbarTemplate = __webpack_require__(19);
 
@@ -32442,10 +32440,10 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var navBar = exports.navBar = function navBar() {
+	var headerNav = exports.headerNav = function headerNav() {
 	    return {
 	        template: _navbarTemplate2.default,
-	        controller: _navbar.navbarController,
+	        controller: _navbar.headerController,
 	        controllerAs: 'vm',
 	        scope: {},
 	        restrict: 'EA',
@@ -32457,7 +32455,7 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <nav class=\"navbar navbar-default\">\r\n      <div class=\"container-fluid\">\r\n        <!-- Brand and toggle get grouped for better mobile display -->\r\n        <div class=\"navbar-header\">\r\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\r\n            <span class=\"sr-only\">Toggle navigation</span>\r\n            <span class=\"icon-bar\"></span>\r\n            <span class=\"icon-bar\"></span>\r\n            <span class=\"icon-bar\"></span>\r\n          </button>\r\n          <a class=\"navbar-brand\" href=\"#\">Brand</a>\r\n        </div>\r\n\r\n        <!-- Collect the nav links, forms, and other content for toggling -->\r\n        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n          <ul class=\"nav navbar-nav\">\r\n            <li class=\"active\"><a href=\"#\">{{8 + 24}} <span class=\"sr-only\">(current)</span></a></li>\r\n            <li><a href=\"#\">Link</a></li>\r\n            <li class=\"dropdown\">\r\n              <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\r\n              <ul class=\"dropdown-menu\">\r\n                <li><a href=\"#\">Action</a></li>\r\n                <li><a href=\"#\">Another action</a></li>\r\n                <li><a href=\"#\">Something else here</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">Separated link</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">One more separated link</a></li>\r\n              </ul>\r\n            </li>\r\n          </ul>\r\n\r\n          <!-- <ul class=\"nav navbar-nav navbar-right\">\r\n            <li><a href=\"#\">Link</a></li>\r\n            <li class=\"dropdown\">\r\n              <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\r\n              <ul class=\"dropdown-menu\">\r\n                <li><a href=\"#\">Action</a></li>\r\n                <li><a href=\"#\">Another action</a></li>\r\n                <li><a href=\"#\">Something else here</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">Separated link</a></li>\r\n              </ul>\r\n            </li>\r\n          </ul> -->\r\n\r\n        </div><!-- /.navbar-collapse -->\r\n      </div><!-- /.container-fluid -->\r\n    </nav>\r\n\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n    <nav class=\"navbar navbar-default\">\r\n      <div class=\"container-fluid\">\r\n        <!-- Brand and toggle get grouped for better mobile display -->\r\n        <div class=\"navbar-header\">\r\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\r\n            <span class=\"sr-only\">Toggle navigation</span>\r\n            <span class=\"icon-bar\"></span>\r\n            <span class=\"icon-bar\"></span>\r\n            <span class=\"icon-bar\"></span>\r\n          </button>\r\n          <a class=\"navbar-brand\" href=\"#\">Brand</a>\r\n        </div>\r\n\r\n        <!-- Collect the nav links, forms, and other content for toggling -->\r\n        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n          <ul class=\"nav navbar-nav\">\r\n            <li ng-class=\"{active: vm.isActive('/')}\"><a href=\"#/\" >Home<span class=\"sr-only\">(current)</span></a></li>\r\n            <li ng-class=\"{active: vm.isActive('/staff')}\"><a href=\"#/staff\">Staff</a></li>\r\n            <li ng-class=\"{active: vm.isActive('/feedbacks')}\"><a href=\"#/feedbacks\">Feedbacks</a></li>\r\n            <li class=\"dropdown\">\r\n              <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\r\n              <ul class=\"dropdown-menu\">\r\n                <li><a href=\"#\">Action</a></li>\r\n                <li><a href=\"#\">Another action</a></li>\r\n                <li><a href=\"#\">Something else here</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">Separated link</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">One more separated link</a></li>\r\n              </ul>\r\n            </li>\r\n          </ul>\r\n\r\n          <!-- <ul class=\"nav navbar-nav navbar-right\">\r\n            <li><a href=\"#\">Link</a></li>\r\n            <li class=\"dropdown\">\r\n              <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\r\n              <ul class=\"dropdown-menu\">\r\n                <li><a href=\"#\">Action</a></li>\r\n                <li><a href=\"#\">Another action</a></li>\r\n                <li><a href=\"#\">Something else here</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">Separated link</a></li>\r\n              </ul>\r\n            </li>\r\n          </ul> -->\r\n\r\n        </div><!-- /.navbar-collapse -->\r\n      </div><!-- /.container-fluid -->\r\n    </nav>\r\n\r\n</div>\r\n"
 
 /***/ },
 /* 20 */
@@ -32465,13 +32463,23 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var headerController = function headerController() {
+	var headerController = function headerController($location) {
 	    _classCallCheck(this, headerController);
 
-	    this.s = 'headerController';
+	    this.isActive = function (url) {
+	        return $location.path() === url;
+	    };
 	};
+
+	headerController.$inject = ['$location'];
+
+	exports.headerController = headerController;
 
 /***/ },
 /* 21 */
