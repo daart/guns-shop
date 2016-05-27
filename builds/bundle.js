@@ -69,9 +69,11 @@
 
 	var _homepg = __webpack_require__(21);
 
+	var _members = __webpack_require__(25);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_angular2.default.module('killerGuns', [_angularRoute2.default, _homepg.homepg.name]).directive('appContainer', _app.appDirective).directive('headerNav', _navbar.headerNav);
+	_angular2.default.module('killerGuns', [_angularRoute2.default, _homepg.homepg.name, _members.staff.name]).directive('appContainer', _app.appDirective).directive('headerNav', _navbar.headerNav);
 
 /***/ },
 /* 2 */
@@ -32405,7 +32407,7 @@
 /* 16 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"outer-wrapper\">\r\n    <div class=\"l-wrapper\">\r\n        <header class=\"l-header\">\r\n            <header-nav></header-nav>\r\n        </header>\r\n\r\n        <div class=\"ng-view\">\r\n\r\n        </div>\r\n\r\n\r\n        <footer class=\"l-footer\">\r\n            <footer-nav></footer-nav>\r\n        </footer>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<div class=\"outer-wrapper\">\r\n    <div class=\"l-wrapper\">\r\n        <header class=\"l-header\">\r\n            <header-nav></header-nav>\r\n        </header>\r\n\r\n        <div class=\"l-main__content\">\r\n            <div ng-view>\r\n\r\n            </div>\r\n        </div>\r\n\r\n        <footer class=\"l-footer\">\r\n            <footer-nav></footer-nav>\r\n        </footer>\r\n    </div>\r\n</div>\r\n"
 
 /***/ },
 /* 17 */
@@ -32455,7 +32457,7 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <nav class=\"navbar navbar-default\">\r\n      <div class=\"container-fluid\">\r\n        <!-- Brand and toggle get grouped for better mobile display -->\r\n        <div class=\"navbar-header\">\r\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\r\n            <span class=\"sr-only\">Toggle navigation</span>\r\n            <span class=\"icon-bar\"></span>\r\n            <span class=\"icon-bar\"></span>\r\n            <span class=\"icon-bar\"></span>\r\n          </button>\r\n          <a class=\"navbar-brand\" href=\"#\">Brand</a>\r\n        </div>\r\n\r\n        <!-- Collect the nav links, forms, and other content for toggling -->\r\n        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n          <ul class=\"nav navbar-nav\">\r\n            <li ng-class=\"{active: vm.isActive('/')}\"><a href=\"#/\" >Home<span class=\"sr-only\">(current)</span></a></li>\r\n            <li ng-class=\"{active: vm.isActive('/staff')}\"><a href=\"#/staff\">Staff</a></li>\r\n            <li ng-class=\"{active: vm.isActive('/feedbacks')}\"><a href=\"#/feedbacks\">Feedbacks</a></li>\r\n            <li class=\"dropdown\">\r\n              <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\r\n              <ul class=\"dropdown-menu\">\r\n                <li><a href=\"#\">Action</a></li>\r\n                <li><a href=\"#\">Another action</a></li>\r\n                <li><a href=\"#\">Something else here</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">Separated link</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">One more separated link</a></li>\r\n              </ul>\r\n            </li>\r\n          </ul>\r\n\r\n          <!-- <ul class=\"nav navbar-nav navbar-right\">\r\n            <li><a href=\"#\">Link</a></li>\r\n            <li class=\"dropdown\">\r\n              <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\r\n              <ul class=\"dropdown-menu\">\r\n                <li><a href=\"#\">Action</a></li>\r\n                <li><a href=\"#\">Another action</a></li>\r\n                <li><a href=\"#\">Something else here</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">Separated link</a></li>\r\n              </ul>\r\n            </li>\r\n          </ul> -->\r\n\r\n        </div><!-- /.navbar-collapse -->\r\n      </div><!-- /.container-fluid -->\r\n    </nav>\r\n\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n    <nav class=\"navbar navbar-default\">\r\n      <div class=\"container-fluid\">\r\n        <!-- Brand and toggle get grouped for better mobile display -->\r\n        <div class=\"navbar-header\">\r\n          <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\" aria-expanded=\"false\">\r\n            <span class=\"sr-only\">Toggle navigation</span>\r\n            <span class=\"icon-bar\"></span>\r\n            <span class=\"icon-bar\"></span>\r\n            <span class=\"icon-bar\"></span>\r\n          </button>\r\n          <a class=\"navbar-brand\" href=\"#\">Brand</a>\r\n        </div>\r\n\r\n        <!-- Collect the nav links, forms, and other content for toggling -->\r\n        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\r\n          <ul class=\"nav navbar-nav\">\r\n            <li ng-class=\"{active: vm.isActive('/home')}\"><a href=\"#/home\" >Home<span class=\"sr-only\">(current)</span></a></li>\r\n            <li ng-class=\"{active: vm.isActive('/staff')}\"><a href=\"#/staff\">Staff</a></li>\r\n            <li ng-class=\"{active: vm.isActive('/feedbacks')}\"><a href=\"#/feedbacks\">Feedbacks</a></li>\r\n            <li class=\"dropdown\">\r\n              <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\r\n              <ul class=\"dropdown-menu\">\r\n                <li><a href=\"#\">Action</a></li>\r\n                <li><a href=\"#\">Another action</a></li>\r\n                <li><a href=\"#\">Something else here</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">Separated link</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">One more separated link</a></li>\r\n              </ul>\r\n            </li>\r\n          </ul>\r\n\r\n          <!-- <ul class=\"nav navbar-nav navbar-right\">\r\n            <li><a href=\"#\">Link</a></li>\r\n            <li class=\"dropdown\">\r\n              <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>\r\n              <ul class=\"dropdown-menu\">\r\n                <li><a href=\"#\">Action</a></li>\r\n                <li><a href=\"#\">Another action</a></li>\r\n                <li><a href=\"#\">Something else here</a></li>\r\n                <li role=\"separator\" class=\"divider\"></li>\r\n                <li><a href=\"#\">Separated link</a></li>\r\n              </ul>\r\n            </li>\r\n          </ul> -->\r\n\r\n        </div><!-- /.navbar-collapse -->\r\n      </div><!-- /.container-fluid -->\r\n    </nav>\r\n\r\n</div>\r\n"
 
 /***/ },
 /* 20 */
@@ -32501,12 +32503,10 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var homepg = _angular2.default.module('homepg', []).config(function ($routeProvider) {
-	    $routeProvider.when('/', {
+	    $routeProvider.when('/home', {
 	        template: '<homepg></homepg>'
 	    });
 	}).directive('homepg', _homepg.homepgDirective);
-	// import homepgTemplate from './homepg.template.html';
-
 
 	exports.homepg = homepg;
 
@@ -32578,6 +32578,92 @@
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"container\">\r\n    <div class=\"l-body-content\">\r\n        <p>\r\n            blah blah blah <br>\r\n            blah blah blah <br>\r\n            blah blah blah <br>\r\n            blah blah blah <br>\r\n        </p>\r\n        <h3>{{vm.sampleVal}}</h3>\r\n    </div>\r\n</div>\r\n"
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.staff = undefined;
+
+	var _angular = __webpack_require__(2);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _members = __webpack_require__(26);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var staff = _angular2.default.module('staff', []).config(function ($routeProvider) {
+	    $routeProvider.when('/staff', {
+	        template: '<staff></staff>'
+	    });
+	}).directive('staff', _members.staffDirective);
+
+	exports.staff = staff;
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.staffDirective = undefined;
+
+	var _membersTemplate = __webpack_require__(27);
+
+	var _membersTemplate2 = _interopRequireDefault(_membersTemplate);
+
+	var _members = __webpack_require__(28);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var staffDirective = exports.staffDirective = function staffDirective() {
+	    return {
+	        template: _membersTemplate2.default,
+	        controller: _members.staffController,
+	        controllerAs: 'vm',
+	        restrict: 'EA',
+	        replace: true,
+	        scope: {}
+	    };
+	};
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content\">\r\n        <ul>\r\n            <li><a href=\"\"><strong></strong></a></li>\r\n            <li><a href=\"\"><strong></strong></a></li>\r\n            <li><a href=\"\"><strong></strong></a></li>\r\n            <li><a href=\"\"><strong></strong></a></li>\r\n        </ul>\r\n    </div>\r\n</div>\r\n"
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var staffController = function staffController() {
+	    _classCallCheck(this, staffController);
+
+	    this.v = 'ctrl works';
+	    console.log(this.v);
+	};
+
+	// staffController.$inject = ['$http'];
+
+	exports.staffController = staffController;
 
 /***/ }
 /******/ ]);
