@@ -32596,13 +32596,15 @@
 
 	var _members = __webpack_require__(26);
 
+	var _staff = __webpack_require__(29);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var staff = _angular2.default.module('staff', []).config(function ($routeProvider) {
 	    $routeProvider.when('/staff', {
 	        template: '<staff></staff>'
 	    });
-	}).directive('staff', _members.staffDirective);
+	}).directive('staff', _members.staffDirective).service('staffService', _staff.staffService);
 
 	exports.staff = staff;
 
@@ -32640,10 +32642,43 @@
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content\">\r\n        <ul>\r\n            <li><a href=\"\"><strong></strong></a></li>\r\n            <li><a href=\"\"><strong></strong></a></li>\r\n            <li><a href=\"\"><strong></strong></a></li>\r\n            <li><a href=\"\"><strong></strong></a></li>\r\n        </ul>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content\">\r\n        <ul>\r\n            <li ng-repeat=\"staffMembers in vm.staff\"><a href=\"\"><strong>{{staffMembers in vm.staff}}</strong></a></li>\r\n        </ul>\r\n    </div>\r\n</div>\r\n"
 
 /***/ },
 /* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.staffController = undefined;
+
+	var _staff = __webpack_require__(29);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var staffController = function staffController(staffService) {
+	    _classCallCheck(this, staffController);
+
+	    this.v = 'ctrl works';
+	    console.log(staffService);
+	    this.staff = [];
+
+	    staffService.getAllStaffMembers().then(function (res) {
+	        if (res.data.success) {
+	            this.staff = res.data.staffData;
+	        }
+	    });
+	};
+
+	staffController.$inject = ['staffService'];
+
+	exports.staffController = staffController;
+
+/***/ },
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -32651,19 +32686,24 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	var staffService = function staffService($http) {
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	    var service = {
+	        getAllStaffMembers: getAllStaffMembers
+	    };
 
-	var staffController = function staffController() {
-	    _classCallCheck(this, staffController);
+	    function getAllStaffMembers() {
+	        return $http.get('/api/staff');
+	    }
 
-	    this.v = 'ctrl works';
-	    console.log(this.v);
+	    console.log('service is working');
+
+	    return service;
 	};
 
-	// staffController.$inject = ['$http'];
+	staffService.$inject = ['$http'];
 
-	exports.staffController = staffController;
+	exports.staffService = staffService;
 
 /***/ }
 /******/ ]);

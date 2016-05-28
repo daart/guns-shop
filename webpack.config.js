@@ -45,9 +45,8 @@ module.exports = {
     },
 
     resolve: {
-        root: path.resolve(__dirname),
         alias: {
-            shared: '/public/backend/shared',
+            shared: path.resolve(__dirname + '/public/backend/shared'),
             libs: path.resolve(__dirname + '/node_modules')
         },
         extensions: ['', '.js', '.css']
