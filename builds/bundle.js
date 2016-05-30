@@ -32642,7 +32642,7 @@
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content\">\r\n        <ul>\r\n            <li ng-repeat=\"staffMembers in vm.staff\"><a href=\"\"><strong>{{staffMembers in vm.staff}}</strong></a></li>\r\n        </ul>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content\">\r\n        <ul>\r\n            <li ng-repeat=\"staffMember in vm.staff\"><a href=\"\"><strong>{{staffMember.firstName}}</strong></a></li>\r\n        </ul>\r\n    </div>\r\n</div>\r\n"
 
 /***/ },
 /* 28 */
@@ -32660,15 +32660,18 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var staffController = function staffController(staffService) {
+	    var _this = this;
+
 	    _classCallCheck(this, staffController);
 
 	    this.v = 'ctrl works';
-	    console.log(staffService);
 	    this.staff = [];
 
 	    staffService.getAllStaffMembers().then(function (res) {
-	        if (res.data.success) {
-	            this.staff = res.data.staffData;
+	        var staff = [];
+	        if (res.data.status) {
+	            staff = res.data.staffData;
+	            _this.staff = res.data.staffData;
 	        }
 	    });
 	};
@@ -32688,17 +32691,13 @@
 	});
 	var staffService = function staffService($http) {
 
-	    var service = {
-	        getAllStaffMembers: getAllStaffMembers
-	    };
-
 	    function getAllStaffMembers() {
 	        return $http.get('/api/staff');
 	    }
 
-	    console.log('service is working');
-
-	    return service;
+	    return {
+	        getAllStaffMembers: getAllStaffMembers
+	    };
 	};
 
 	staffService.$inject = ['$http'];

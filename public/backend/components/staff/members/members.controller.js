@@ -1,18 +1,22 @@
-import {staffService} from '../../../shared/services/staff.service';
+import {staffService} from 'shared/services/staff.service';
 
 class staffController {
+
     constructor(staffService) {
         this.v = 'ctrl works';
-        console.log(staffService);
         this.staff = [];
 
         staffService.getAllStaffMembers()
-            .then(function (res) {
-                if(res.data.success) {
+            .then((res) => {
+                var staff = [];
+                if(res.data.status) {
+                    staff = res.data.staffData;
                     this.staff = res.data.staffData;
                 }
+
         });
     }
+
 }
 
 staffController.$inject = ['staffService'];
