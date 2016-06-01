@@ -32642,7 +32642,7 @@
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content\">\r\n        <ul>\r\n            <li ng-repeat=\"staffMember in vm.staff\"><a href=\"\"><strong>{{staffMember.firstName}}</strong></a></li>\r\n        </ul>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content panel panel-default\">\r\n        <!-- Default panel contents -->\r\n        <div class=\"panel-heading\">Panel heading</div>\r\n        <div class=\"panel-body\">\r\n            <p>This is a list of our company's personnel</p>\r\n        </div>\r\n\r\n        <table class=\"table table-striped\">\r\n            <tr>\r\n                <th>id</th>\r\n                <th>First Name</th>\r\n                <th>Last Name</th>\r\n                <th>Occupation</th>\r\n                <th>Branch</th>\r\n                <th></th>\r\n            </tr>\r\n            <tr ng-repeat=\"staffMember in vm.staff\">\r\n                <td><a href=\"#\">{{staffMember._id}}</a></td>\r\n                <td>{{staffMember.firstName}}</td>\r\n                <td>{{staffMember.lastName}}</td>\r\n                <td>{{staffMember.occupation}}</td>\r\n                <td>{{staffMember.role}}</td>\r\n                <td><a href=\"#\" class=\"btn btn-danger btn-sm\">Delete</a><a href=\"#\" class=\"btn btn-primary btn-sm\">Edit</a></td>\r\n            </tr>\r\n        </table>\r\n    </div>\r\n</div>\r\n"
 
 /***/ },
 /* 28 */

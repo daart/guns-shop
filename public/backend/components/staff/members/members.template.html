@@ -1,7 +1,28 @@
 <div class="container">
-    <div class="l-staff__content">
-        <ul>
-            <li ng-repeat="staffMember in vm.staff"><a href=""><strong>{{staffMember.firstName}}</strong></a></li>
-        </ul>
+    <div class="l-staff__content panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Panel heading</div>
+        <div class="panel-body">
+            <p>This is a list of our company's personnel</p>
+        </div>
+
+        <table class="table table-striped">
+            <tr>
+                <th>id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Occupation</th>
+                <th>Branch</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="staffMember in vm.staff">
+                <td><a href="#">{{staffMember._id}}</a></td>
+                <td>{{staffMember.firstName}}</td>
+                <td>{{staffMember.lastName}}</td>
+                <td>{{staffMember.occupation}}</td>
+                <td>{{staffMember.role}}</td>
+                <td><a href="#" class="btn btn-danger btn-sm">Delete</a><a href="#" class="btn btn-primary btn-sm">Edit</a></td>
+            </tr>
+        </table>
     </div>
 </div>
