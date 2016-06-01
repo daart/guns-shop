@@ -32598,13 +32598,21 @@
 
 	var _staff = __webpack_require__(29);
 
+	var _profile = __webpack_require__(32);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var staff = _angular2.default.module('staff', []).config(function ($routeProvider) {
-	    $routeProvider.when('/staff', {
+	    $routeProvider.when('/staff/addMember', {
+	        template: '<div>add</div>'
+	    }).when('/staff/edit/:id', {
+	        template: '<div>edit</div>'
+	    }).when('/staff/profile/:id', {
+	        template: '<profile></profile>'
+	    }).when('/staff', {
 	        template: '<staff></staff>'
 	    });
-	}).directive('staff', _members.staffDirective).service('staffService', _staff.staffService);
+	}).directive('staff', _members.staffDirective).directive('profile', _profile.profileDirective).service('staffService', _staff.staffService);
 
 	exports.staff = staff;
 
@@ -32642,7 +32650,7 @@
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content panel panel-default\">\r\n        <!-- Default panel contents -->\r\n        <div class=\"panel-heading\">Panel heading</div>\r\n        <div class=\"panel-body\">\r\n            <p>This is a list of our company's personnel</p>\r\n        </div>\r\n\r\n        <table class=\"table table-striped\">\r\n            <tr>\r\n                <th>id</th>\r\n                <th>First Name</th>\r\n                <th>Last Name</th>\r\n                <th>Occupation</th>\r\n                <th>Branch</th>\r\n                <th></th>\r\n            </tr>\r\n            <tr ng-repeat=\"staffMember in vm.staff\">\r\n                <td><a href=\"#\">{{staffMember._id}}</a></td>\r\n                <td>{{staffMember.firstName}}</td>\r\n                <td>{{staffMember.lastName}}</td>\r\n                <td>{{staffMember.occupation}}</td>\r\n                <td>{{staffMember.role}}</td>\r\n                <td><a href=\"#\" class=\"btn btn-danger btn-sm\">Delete</a><a href=\"#\" class=\"btn btn-primary btn-sm\">Edit</a></td>\r\n            </tr>\r\n        </table>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content panel panel-default\">\r\n        <!-- Default panel contents -->\r\n        <div class=\"panel-heading\">Panel heading</div>\r\n        <div class=\"panel-body\">\r\n            <p>This is a list of our company's personnel</p>\r\n        </div>\r\n\r\n        <table class=\"table table-striped\">\r\n            <tr>\r\n                <th>id</th>\r\n                <th>First Name</th>\r\n                <th>Last Name</th>\r\n                <th>Occupation</th>\r\n                <th>Branch</th>\r\n                <th></th>\r\n            </tr>\r\n            <tr ng-repeat=\"staffMember in vm.staff\">\r\n                <td><a href=\"#/staff/profile/{{staffMember._id}}\">{{staffMember._id}}</a></td>\r\n                <td>{{staffMember.firstName}}</td>\r\n                <td>{{staffMember.lastName}}</td>\r\n                <td>{{staffMember.occupation}}</td>\r\n                <td>{{staffMember.role}}</td>\r\n                <td><a href=\"#\" class=\"btn btn-danger btn-sm\">Delete</a><a href=\"#\" class=\"btn btn-primary btn-sm\">Edit</a></td>\r\n            </tr>\r\n        </table>\r\n    </div>\r\n</div>\r\n"
 
 /***/ },
 /* 28 */
@@ -32664,12 +32672,12 @@
 
 	    _classCallCheck(this, staffController);
 
-	    this.v = 'ctrl works';
+	    // this.v = 'ctrl works';
 	    this.staff = [];
 
 	    staffService.getAllStaffMembers().then(function (res) {
 	        var staff = [];
-	        if (res.data.status) {
+	        if (res.data.success) {
 	            staff = res.data.staffData;
 	            _this.staff = res.data.staffData;
 	        }
@@ -32703,6 +32711,39 @@
 	staffService.$inject = ['$http'];
 
 	exports.staffService = staffService;
+
+/***/ },
+/* 30 */,
+/* 31 */,
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.profileDirective = undefined;
+
+	var _profileTemplate = __webpack_require__(33);
+
+	var _profileTemplate2 = _interopRequireDefault(_profileTemplate);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var profileDirective = exports.profileDirective = function profileDirective() {
+	    return {
+	        template: _profileTemplate2.default,
+	        replace: true,
+	        scope: {}
+	    };
+	};
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"container\">\r\n    <h2>User's Profile</h2>\r\n</div>\r\n"
 
 /***/ }
 /******/ ]);

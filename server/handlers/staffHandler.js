@@ -5,20 +5,38 @@ function getAllStaffMembers(req, res) {
 
         if(err){
             res.json({
-                status: false,
+                success: false,
                 error:err
             });
             return;
         }
 
         res.json({
-            status: true,
+            success: true,
             staffData: staffData,
             staffRole: db.StaffModel.schema.path('role').enumValues
         });
     });
 }
 
+function getStaffMember(req, res) {
+    db.StaffModel.findById(req.params.id, function (err, profile) {
+        if(err) {
+            res.json({
+                success:false,
+                err:err
+            });
+            return;
+        }
+
+        res.json({
+            success: true,
+            profile: profile
+        })
+    });
+}
+
 module.exports = {
-    getAllStaffMembers: getAllStaffMembers
+    getAllStaffMembers: getAllStaffMembers,
+    getStaffMember: getStaffMember
 };
