@@ -23,10 +23,17 @@ app.use('/builds', express.static(path.resolve(__dirname + '/../builds')));
 app.use('/admin', express.static(path.resolve(__dirname + '/../public/backend')));
 app.use('/public', express.static(path.resolve(__dirname + '/../public/frontend')));
 
-// Set endpoint to fetch all staff members
+/**
+ * Set endpoint to fetch staffMember data
+ */
+apiRouter.route('/staff/profile/:id')
+    .get(staffAPI.getStaffMember);
+
+/**
+ * Set endpoint to fetch all staff members
+ */
 apiRouter.route('/staff')
     .get(staffAPI.getAllStaffMembers);
-
 
 app.use('/api', apiRouter);
 

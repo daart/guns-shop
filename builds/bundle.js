@@ -69,11 +69,11 @@
 
 	var _homepg = __webpack_require__(21);
 
-	var _members = __webpack_require__(25);
+	var _staff = __webpack_require__(25);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_angular2.default.module('killerGuns', [_angularRoute2.default, _homepg.homepg.name, _members.staff.name]).directive('appContainer', _app.appDirective).directive('headerNav', _navbar.headerNav);
+	_angular2.default.module('killerGuns', [_angularRoute2.default, _homepg.homepg.name, _staff.staff.name]).directive('appContainer', _app.appDirective).directive('headerNav', _navbar.headerNav);
 
 /***/ },
 /* 2 */
@@ -32594,11 +32594,11 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _members = __webpack_require__(26);
+	var _staff = __webpack_require__(26);
 
-	var _staff = __webpack_require__(29);
+	var _staff2 = __webpack_require__(29);
 
-	var _profile = __webpack_require__(32);
+	var _profile = __webpack_require__(30);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32612,7 +32612,7 @@
 	    }).when('/staff', {
 	        template: '<staff></staff>'
 	    });
-	}).directive('staff', _members.staffDirective).directive('profile', _profile.profileDirective).service('staffService', _staff.staffService);
+	}).directive('staff', _staff.staffDirective).directive('profile', _profile.profileDirective).service('staffService', _staff2.staffService);
 
 	exports.staff = staff;
 
@@ -32627,18 +32627,18 @@
 	});
 	exports.staffDirective = undefined;
 
-	var _membersTemplate = __webpack_require__(27);
+	var _staffTemplate = __webpack_require__(27);
 
-	var _membersTemplate2 = _interopRequireDefault(_membersTemplate);
+	var _staffTemplate2 = _interopRequireDefault(_staffTemplate);
 
-	var _members = __webpack_require__(28);
+	var _staff = __webpack_require__(28);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var staffDirective = exports.staffDirective = function staffDirective() {
 	    return {
-	        template: _membersTemplate2.default,
-	        controller: _members.staffController,
+	        template: _staffTemplate2.default,
+	        controller: _staff.staffController,
 	        controllerAs: 'vm',
 	        restrict: 'EA',
 	        replace: true,
@@ -32650,7 +32650,7 @@
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content panel panel-default\">\r\n        <!-- Default panel contents -->\r\n        <div class=\"panel-heading\">Panel heading</div>\r\n        <div class=\"panel-body\">\r\n            <p>This is a list of our company's personnel</p>\r\n        </div>\r\n\r\n        <table class=\"table table-striped\">\r\n            <tr>\r\n                <th>id</th>\r\n                <th>First Name</th>\r\n                <th>Last Name</th>\r\n                <th>Occupation</th>\r\n                <th>Branch</th>\r\n                <th></th>\r\n            </tr>\r\n            <tr ng-repeat=\"staffMember in vm.staff\">\r\n                <td><a href=\"#/staff/profile/{{staffMember._id}}\">{{staffMember._id}}</a></td>\r\n                <td>{{staffMember.firstName}}</td>\r\n                <td>{{staffMember.lastName}}</td>\r\n                <td>{{staffMember.occupation}}</td>\r\n                <td>{{staffMember.role}}</td>\r\n                <td><a href=\"#\" class=\"btn btn-danger btn-sm\">Delete</a><a href=\"#\" class=\"btn btn-primary btn-sm\">Edit</a></td>\r\n            </tr>\r\n        </table>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content panel panel-default\">\r\n        <!-- Default panel contents -->\r\n        <div class=\"panel-heading\">Panel heading</div>\r\n        <div class=\"panel-body\">\r\n            <p>This is a list of our company's personnel</p>\r\n        </div>\r\n\r\n        <table class=\"table table-striped\">\r\n            <tr>\r\n                <th>id</th>\r\n                <th>First Name</th>\r\n                <th>Last Name</th>\r\n                <th>Occupation</th>\r\n                <th>Branch</th>\r\n                <th></th>\r\n                <th></th>\r\n            </tr>\r\n            <tr ng-repeat=\"staffMember in vm.staff\">\r\n                <td><a href=\"#/staff/profile/{{staffMember._id}}\">{{staffMember._id}}</a></td>\r\n                <td>{{staffMember.firstName}}</td>\r\n                <td>{{staffMember.lastName}}</td>\r\n                <td>{{staffMember.occupation}}</td>\r\n                <td>{{staffMember.role}}</td>\r\n                <td><a href=\"#\" class=\"btn btn-danger btn-sm\">Delete</a></td>\r\n                <td><a href=\"#\" class=\"btn btn-primary btn-sm\">Edit</a></td>\r\n            </tr>\r\n        </table>\r\n    </div>\r\n</div>\r\n"
 
 /***/ },
 /* 28 */
@@ -32672,7 +32672,6 @@
 
 	    _classCallCheck(this, staffController);
 
-	    // this.v = 'ctrl works';
 	    this.staff = [];
 
 	    staffService.getAllStaffMembers().then(function (res) {
@@ -32703,8 +32702,24 @@
 	        return $http.get('/api/staff');
 	    }
 
+	    function getStaffMember() {
+	        return $http.get('/api/staff/profile/' + $routeParams.id);
+	    }
+
+	    function deleteStaffMember() {
+	        return $http.delete();
+	    }
+
+	    function editStaffMember() {}
+
+	    function createStaffMember() {}
+
 	    return {
-	        getAllStaffMembers: getAllStaffMembers
+	        getAllStaffMembers: getAllStaffMembers,
+	        getStaffMember: getStaffMember,
+	        deleteStaffMember: deleteStaffMember,
+	        editStaffMember: editStaffMember,
+	        createStaffMember: createStaffMember
 	    };
 	};
 
@@ -32713,9 +32728,7 @@
 	exports.staffService = staffService;
 
 /***/ },
-/* 30 */,
-/* 31 */,
-/* 32 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32725,25 +32738,54 @@
 	});
 	exports.profileDirective = undefined;
 
-	var _profileTemplate = __webpack_require__(33);
+	var _profileTemplate = __webpack_require__(31);
 
 	var _profileTemplate2 = _interopRequireDefault(_profileTemplate);
+
+	var _profile = __webpack_require__(32);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var profileDirective = exports.profileDirective = function profileDirective() {
 	    return {
 	        template: _profileTemplate2.default,
+	        controller: _profile.profileController,
+	        controllerAs: 'vm',
 	        replace: true,
 	        scope: {}
 	    };
 	};
 
 /***/ },
-/* 33 */
+/* 31 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"container\">\r\n    <h2>User's Profile</h2>\r\n</div>\r\n"
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.profileController = undefined;
+
+	var _staff = __webpack_require__(29);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var profileController = function profileController() {
+	    _classCallCheck(this, profileController);
+
+	    console.log('profile controlelr works fine');
+	};
+
+	profileController.$inject = ['staffService'];
+
+	exports.profileController = profileController;
 
 /***/ }
 /******/ ]);

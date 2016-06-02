@@ -1,5 +1,5 @@
 import angular from 'angular';
-import {staffDirective} from './members.directive';
+import {staffDirective} from './staff.directive';
 import {staffService} from 'shared/services/staff.service';
 import {profileDirective} from './components/profile/profile.directive'
 

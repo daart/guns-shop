@@ -5,7 +5,7 @@ import 'libs/bootstrap/dist/css/bootstrap.min.css';
 import {appDirective} from './app.directive';
 import {headerNav} from './shared/header_nav_bar/navbar.directive';
 import {homepg} from './components/homepg/homepg.module';
-import {staff} from './components/staff/members/members.module';
+import {staff} from './components/staff/staff.module';
 
 angular.module('killerGuns', [
     router,

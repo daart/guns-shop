@@ -4,8 +4,28 @@ const staffService = ($http) => {
         return $http.get('/api/staff');
     }
 
+    function getStaffMember() {
+        return $http.get('/api/staff/profile/' + $routeParams.id);
+    }
+
+    function deleteStaffMember() {
+        return $http.delete()
+    }
+
+    function editStaffMember() {
+
+    }
+
+    function createStaffMember() {
+
+    }
+
     return {
-        getAllStaffMembers
+        getAllStaffMembers,
+        getStaffMember,
+        deleteStaffMember,
+        editStaffMember,
+        createStaffMember
     };
 
 };

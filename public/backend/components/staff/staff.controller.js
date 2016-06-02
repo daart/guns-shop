@@ -3,7 +3,6 @@ import {staffService} from 'shared/services/staff.service';
 class staffController {
 
     constructor(staffService) {
-        // this.v = 'ctrl works';
         this.staff = [];
 
         staffService.getAllStaffMembers()

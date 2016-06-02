@@ -14,6 +14,7 @@
                 <th>Occupation</th>
                 <th>Branch</th>
                 <th></th>
+                <th></th>
             </tr>
             <tr ng-repeat="staffMember in vm.staff">
                 <td><a href="#/staff/profile/{{staffMember._id}}">{{staffMember._id}}</a></td>
@@ -21,7 +22,8 @@
                 <td>{{staffMember.lastName}}</td>
                 <td>{{staffMember.occupation}}</td>
                 <td>{{staffMember.role}}</td>
-                <td><a href="#" class="btn btn-danger btn-sm">Delete</a><a href="#" class="btn btn-primary btn-sm">Edit</a></td>
+                <td><a href="#" class="btn btn-danger btn-sm">Delete</a></td>
+                <td><a href="#" class="btn btn-primary btn-sm">Edit</a></td>
             </tr>
         </table>
     </div>
