@@ -24,14 +24,20 @@ app.use('/admin', express.static(path.resolve(__dirname + '/../public/backend'))
 app.use('/public', express.static(path.resolve(__dirname + '/../public/frontend')));
 
 /**
- * Set endpoint to fetch staffMember data
+ * Set CRUDs for staff routes
  */
 apiRouter.route('/staff/profile/:id')
     .get(staffAPI.getStaffMember);
 
-/**
- * Set endpoint to fetch all staff members
- */
+apiRouter.route('/staff/addMember')
+    .post(staffAPI.addNewStaffMember);
+
+apiRouter.route('/staff/edit/:id')
+    .put(staffAPI.updateStaffMemberProfile);
+
+apiRouter.route('/staff:id')
+    .delete(staffAPI.deleteStaffMember);
+
 apiRouter.route('/staff')
     .get(staffAPI.getAllStaffMembers);
 

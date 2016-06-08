@@ -1,3 +1,100 @@
 <div class="container">
-    <h2>User's Profile</h2>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+          <h3 class="panel-title">User Profile: <strong>#{{vm.staffMember._id}}</strong> </h3>
+      </div>
+      <div class="panel-body">
+        <h3>Personal Info</h3>
+
+        <div class="media row">
+          <div class="media-left media-middle col-lg-3">
+            <a href="#">
+              <img class="media-object" src="..." alt="...">
+            </a>
+          </div>
+          <div class="col-lg-9">
+            <h4 class="media-heading">CV</h4>
+
+            <table class="table">
+                <tr>
+                    <th><h3>Bio</h3></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Name: </strong>
+                    </td>
+                    <td>
+                        <span>{{vm.staffMember.personal.firstName}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Last Name: </strong>
+                    </td>
+                    <td>
+                        <span>{{vm.staffMember.personal.lastName}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Date of Birth: </strong>
+                    </td>
+                    <td>
+                        <span>{{vm.staffMember.personal.birthDate}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><h3>Corporate</h3></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Occupation: </strong>
+                    </td>
+                    <td>
+                        <span>{{vm.staffMember.corporate.occupation}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Email: </strong>
+                    </td>
+                    <td>
+                        <span>{{vm.staffMember.corporate.contacts.email}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Skype: </strong>
+                    </td>
+                    <td>
+                        <span>{{vm.staffMember.corporate.contacts.skype}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Phone: </strong>
+                    </td>
+                    <td>
+                        <span>{{vm.staffMember.corporate.contacts.phone}}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Skill Cloud: </strong>
+                    </td>
+                    <td>
+                        <span>{{vm.staffMember.corporate.skillset}}</span>
+                    </td>
+                </tr>
+
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
 </div>

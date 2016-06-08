@@ -14,7 +14,7 @@ function getAllStaffMembers(req, res) {
         res.json({
             success: true,
             staffData: staffData,
-            staffRole: db.StaffModel.schema.path('role').enumValues
+            staffRole: db.StaffModel.schema.path('corporate.role').enumValues
         });
     });
 }
@@ -31,12 +31,68 @@ function getStaffMember(req, res) {
 
         res.json({
             success: true,
+            profile: profile,
+            staffRole: db.StaffModel.schema.path('corporate.role').enumValues
+
+        });
+    });
+}
+
+function addNewStaffMember(req, res) {
+    db.StaffModel.create(req.body, function(err, profile){
+        if(err) {
+            res.json({
+                success: false,
+                err: err
+            });
+            return;
+        }
+
+        res.json({
+            success: true,
             profile: profile
-        })
+        });
+    });
+}
+
+function deleteStaffMember(req, res) {
+    db.StaffModel.findByIdAndRemove(req.params.id, function (err, profile) {
+        if(err) {
+            res.json({
+                success: false,
+                err: err
+            });
+            return;
+        }
+
+        res.json({
+            success: true,
+            profile: profile
+        });
+    });
+}
+
+function updateStaffMemberProfile() {
+    db.StaffModel.findByIdAndUpdate(id, {new: true}, function (err, updatedProfile) {
+        if(err) {
+            res.json({
+                success: false,
+                err: err
+            });
+            return;
+        }
+
+        res.json({
+            success: true,
+            profile: updatedProfile
+        });
     });
 }
 
 module.exports = {
     getAllStaffMembers: getAllStaffMembers,
-    getStaffMember: getStaffMember
+    addNewStaffMember: addNewStaffMember,
+    getStaffMember: getStaffMember,
+    deleteStaffMember: deleteStaffMember,
+    updateStaffMemberProfile: updateStaffMemberProfile
 };

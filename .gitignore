@@ -2,5 +2,5 @@
 .vscode/
 node_modules/
 bower_components/
-server/db/dbCredentials.js
+#server/db/dbCredentials.js
 npm-debug.log

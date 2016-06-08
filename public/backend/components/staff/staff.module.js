@@ -1,14 +1,15 @@
 import angular from 'angular';
 import {staffDirective} from './staff.directive';
 import {staffService} from 'shared/services/staff.service';
-import {profileDirective} from './components/profile/profile.directive'
+import {profileDirective} from './components/profile/profile.directive';
+import {memberFormDirective} from './components/member_form/form.directive';
 
 const staff = angular.module('staff', [])
         .config(function ($routeProvider) {
             $routeProvider
 
                 .when('/staff/addMember', {
-                    template: '<div>add</div>'
+                    template: '<add-member></add-member>'
                 })
                 .when('/staff/edit/:id', {
                     template: '<div>edit</div>'
@@ -22,6 +23,7 @@ const staff = angular.module('staff', [])
         })
         .directive('staff', staffDirective)
         .directive('profile', profileDirective)
+        .directive('addMember', memberFormDirective)
         .service('staffService', staffService);
 
 export {staff};

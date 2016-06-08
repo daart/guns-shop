@@ -1,4 +1,4 @@
-const staffService = ($http) => {
+const staffService = ($http, $routeParams) => {
 
     function getAllStaffMembers() {
         return $http.get('/api/staff');
@@ -17,7 +17,7 @@ const staffService = ($http) => {
     }
 
     function createStaffMember() {
-
+        return $http.post('/api/staff/addMember')
     }
 
     return {
@@ -30,6 +30,6 @@ const staffService = ($http) => {
 
 };
 
-staffService.$inject = ['$http'];
+staffService.$inject = ['$http', '$routeParams'];
 
 export {staffService};

@@ -7,9 +7,7 @@ class staffController {
 
         staffService.getAllStaffMembers()
             .then((res) => {
-                var staff = [];
                 if(res.data.success) {
-                    staff = res.data.staffData;
                     this.staff = res.data.staffData;
                 }
         });

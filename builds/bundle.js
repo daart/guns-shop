@@ -32600,11 +32600,13 @@
 
 	var _profile = __webpack_require__(30);
 
+	var _form = __webpack_require__(33);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var staff = _angular2.default.module('staff', []).config(function ($routeProvider) {
 	    $routeProvider.when('/staff/addMember', {
-	        template: '<div>add</div>'
+	        template: '<add-member></add-member>'
 	    }).when('/staff/edit/:id', {
 	        template: '<div>edit</div>'
 	    }).when('/staff/profile/:id', {
@@ -32612,7 +32614,7 @@
 	    }).when('/staff', {
 	        template: '<staff></staff>'
 	    });
-	}).directive('staff', _staff.staffDirective).directive('profile', _profile.profileDirective).service('staffService', _staff2.staffService);
+	}).directive('staff', _staff.staffDirective).directive('profile', _profile.profileDirective).directive('addMember', _form.memberFormDirective).service('staffService', _staff2.staffService);
 
 	exports.staff = staff;
 
@@ -32650,7 +32652,7 @@
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content panel panel-default\">\r\n        <!-- Default panel contents -->\r\n        <div class=\"panel-heading\">Panel heading</div>\r\n        <div class=\"panel-body\">\r\n            <p>This is a list of our company's personnel</p>\r\n        </div>\r\n\r\n        <table class=\"table table-striped\">\r\n            <tr>\r\n                <th>id</th>\r\n                <th>First Name</th>\r\n                <th>Last Name</th>\r\n                <th>Occupation</th>\r\n                <th>Branch</th>\r\n                <th></th>\r\n                <th></th>\r\n            </tr>\r\n            <tr ng-repeat=\"staffMember in vm.staff\">\r\n                <td><a href=\"#/staff/profile/{{staffMember._id}}\">{{staffMember._id}}</a></td>\r\n                <td>{{staffMember.firstName}}</td>\r\n                <td>{{staffMember.lastName}}</td>\r\n                <td>{{staffMember.occupation}}</td>\r\n                <td>{{staffMember.role}}</td>\r\n                <td><a href=\"#\" class=\"btn btn-danger btn-sm\">Delete</a></td>\r\n                <td><a href=\"#\" class=\"btn btn-primary btn-sm\">Edit</a></td>\r\n            </tr>\r\n        </table>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content panel panel-default\">\r\n        <!-- Default panel contents -->\r\n        <div class=\"panel-heading\">Panel heading</div>\r\n        <div class=\"panel-body\">\r\n            <p>This is a list of our company's personnel</p>\r\n        </div>\r\n\r\n        <table class=\"table table-striped\">\r\n            <tr>\r\n                <th>id</th>\r\n                <th>First Name</th>\r\n                <th>Last Name</th>\r\n                <th>Occupation</th>\r\n                <th>Branch</th>\r\n                <th></th>\r\n                <th></th>\r\n            </tr>\r\n            <tr ng-repeat=\"staffMember in vm.staff\">\r\n                <td><a href=\"#/staff/profile/{{staffMember._id}}\">{{staffMember._id}}</a></td>\r\n                <td>{{staffMember.personal.firstName}}</td>\r\n                <td>{{staffMember.personal.lastName}}</td>\r\n                <td>{{staffMember.corporate.occupation}}</td>\r\n                <td>{{staffMember.corporate.role}}</td>\r\n                <td><a href=\"#\" class=\"btn btn-danger btn-sm\">Delete</a></td>\r\n                <td><a href=\"#\" class=\"btn btn-primary btn-sm\">Edit</a></td>\r\n            </tr>\r\n        </table>\r\n    </div>\r\n\r\n    <a href=\"#/staff/addMember\" class=\"btn btn-md btn-success pull-left\">Add new Employee</a>\r\n    \r\n</div>\r\n"
 
 /***/ },
 /* 28 */
@@ -32675,9 +32677,7 @@
 	    this.staff = [];
 
 	    staffService.getAllStaffMembers().then(function (res) {
-	        var staff = [];
 	        if (res.data.success) {
-	            staff = res.data.staffData;
 	            _this.staff = res.data.staffData;
 	        }
 	    });
@@ -32696,7 +32696,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var staffService = function staffService($http) {
+	var staffService = function staffService($http, $routeParams) {
 
 	    function getAllStaffMembers() {
 	        return $http.get('/api/staff');
@@ -32712,7 +32712,9 @@
 
 	    function editStaffMember() {}
 
-	    function createStaffMember() {}
+	    function createStaffMember() {
+	        return $http.post('/api/staff/addMember');
+	    }
 
 	    return {
 	        getAllStaffMembers: getAllStaffMembers,
@@ -32723,7 +32725,7 @@
 	    };
 	};
 
-	staffService.$inject = ['$http'];
+	staffService.$inject = ['$http', '$routeParams'];
 
 	exports.staffService = staffService;
 
@@ -32760,7 +32762,7 @@
 /* 31 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <h2>User's Profile</h2>\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n\r\n    <div class=\"panel panel-info\">\r\n      <div class=\"panel-heading\">\r\n          <h3 class=\"panel-title\">User Profile: <strong>#{{vm.staffMember._id}}</strong> </h3>\r\n      </div>\r\n      <div class=\"panel-body\">\r\n        <h3>Personal Info</h3>\r\n\r\n        <div class=\"media row\">\r\n          <div class=\"media-left media-middle col-lg-3\">\r\n            <a href=\"#\">\r\n              <img class=\"media-object\" src=\"...\" alt=\"...\">\r\n            </a>\r\n          </div>\r\n          <div class=\"col-lg-9\">\r\n            <h4 class=\"media-heading\">CV</h4>\r\n\r\n            <table class=\"table\">\r\n                <tr>\r\n                    <th><h3>Bio</h3></th>\r\n                    <th></th>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <strong>Name: </strong>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{vm.staffMember.personal.firstName}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <strong>Last Name: </strong>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{vm.staffMember.personal.lastName}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <strong>Date of Birth: </strong>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{vm.staffMember.personal.birthDate}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <th><h3>Corporate</h3></th>\r\n                    <th></th>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <strong>Occupation: </strong>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{vm.staffMember.corporate.occupation}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <strong>Email: </strong>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{vm.staffMember.corporate.contacts.email}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <strong>Skype: </strong>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{vm.staffMember.corporate.contacts.skype}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <strong>Phone: </strong>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{vm.staffMember.corporate.contacts.phone}}</span>\r\n                    </td>\r\n                </tr>\r\n                <tr>\r\n                    <td>\r\n                        <strong>Skill Cloud: </strong>\r\n                    </td>\r\n                    <td>\r\n                        <span>{{vm.staffMember.corporate.skillset}}</span>\r\n                    </td>\r\n                </tr>\r\n\r\n            </table>\r\n          </div>\r\n        </div>\r\n\r\n      </div>\r\n    </div>\r\n\r\n</div>\r\n"
 
 /***/ },
 /* 32 */
@@ -32777,15 +32779,95 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var profileController = function profileController() {
+	var profileController = function profileController(staffService) {
+	    var _this = this;
+
 	    _classCallCheck(this, profileController);
 
 	    console.log('profile controlelr works fine');
+
+	    staffService.getStaffMember().then(function (res) {
+	        if (res.data.success) {
+
+	            console.log(res.data.profile);
+	            _this.staffMember = res.data.profile;
+	        }
+	    });
 	};
 
 	profileController.$inject = ['staffService'];
 
 	exports.profileController = profileController;
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.memberFormDirective = undefined;
+
+	var _form = __webpack_require__(34);
+
+	var _formTemplate = __webpack_require__(35);
+
+	var _formTemplate2 = _interopRequireDefault(_formTemplate);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var memberFormDirective = exports.memberFormDirective = function memberFormDirective() {
+	    return {
+	        controller: _form.memberFormController,
+	        controllerAs: 'vm',
+	        template: _formTemplate2.default,
+	        replace: true,
+	        scope: {}
+	    };
+	};
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.memberFormController = undefined;
+
+	var _staff = __webpack_require__(29);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var memberFormController = function memberFormController(staffService) {
+	    var _this = this;
+
+	    _classCallCheck(this, memberFormController);
+
+	    this.formData = {};
+
+	    this.addNewMember = function () {
+	        console.log(_this.formData);
+	    };
+
+	    function _serializeForm() {
+	        return {};
+	    }
+	};
+
+	memberFormController.$inject = ['staffService'];
+
+	exports.memberFormController = memberFormController;
+
+/***/ },
+/* 35 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"container\">\r\n\r\n    <form class=\"\" name=\"memberForm\" ng-submit=\"vm.addNewMember()\">\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.firstName\" class=\"form-control\" placeholder=\"First Name\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.lastName\" class=\"form-control\" placeholder=\"Last Name\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"email\" ng-model=\"vm.formData.email\" class=\"form-control\" placeholder=\"Email\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"date\" ng-model=\"vm.formData.birthDate\" class=\"form-control\" placeholder=\"Birth Date\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.occupation\" class=\"form-control\" placeholder=\"Position\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <textarea name=\"name\" rows=\"8\" cols=\"100\" ng-model=\"vm.formData.skillSet\"></textarea>\r\n      </div>\r\n\r\n      <button type=\"submit\" ng-click=\"vm.addNewMember(vm.vm.formData)\" class=\"btn btn-default\">Submit</button>\r\n    </form>\r\n\r\n    <div>\r\n        <h4>{{vm.formData.firstName}}</h4>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }
 /******/ ]);
