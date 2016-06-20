@@ -32606,9 +32606,11 @@
 
 	var staff = _angular2.default.module('staff', []).config(function ($routeProvider) {
 	    $routeProvider.when('/staff/addMember', {
-	        template: '<add-member></add-member>'
+	        template: '<add-member></add-member>',
+	        isNew: true
 	    }).when('/staff/edit/:id', {
-	        template: '<div>edit</div>'
+	        template: '<div>edit</div>',
+	        isNew: false
 	    }).when('/staff/profile/:id', {
 	        template: '<profile></profile>'
 	    }).when('/staff', {
@@ -32784,12 +32786,8 @@
 
 	    _classCallCheck(this, profileController);
 
-	    console.log('profile controlelr works fine');
-
 	    staffService.getStaffMember().then(function (res) {
 	        if (res.data.success) {
-
-	            console.log(res.data.profile);
 	            _this.staffMember = res.data.profile;
 	        }
 	    });
@@ -32850,12 +32848,33 @@
 
 	    this.formData = {};
 
-	    this.addNewMember = function () {
-	        console.log(_this.formData);
+	    this.handleSubmit = function () {
+	        console.log(_this.formData, _this.formData.corporate.skillset);
 	    };
 
 	    function _serializeForm() {
-	        return {};
+	        return {
+	            personal: {
+	                firstName: vm.formData.personal.firstName,
+	                lastName: vm.formData.personal.lastName,
+	                birthDate: vm.formData.personal.birthDate,
+	                education: vm.formData.personal.education
+	            },
+
+	            corporate: {
+	                occupation: vm.formData.corporate.occupation,
+	                role: vm.formData.corporate.role,
+
+	                contacts: {
+	                    email: vm.formData.corporate.contacts.email,
+	                    skype: vm.formData.corporate.contacts.skype,
+	                    phone: vm.formData.corporate.contacts.phone
+	                },
+
+	                skillset: vm.formData.corporate.skisllset.split(',')
+	            }
+
+	        };
 	    }
 	};
 
@@ -32867,7 +32886,7 @@
 /* 35 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n\r\n    <form class=\"\" name=\"memberForm\" ng-submit=\"vm.addNewMember()\">\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.firstName\" class=\"form-control\" placeholder=\"First Name\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.lastName\" class=\"form-control\" placeholder=\"Last Name\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"email\" ng-model=\"vm.formData.email\" class=\"form-control\" placeholder=\"Email\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"date\" ng-model=\"vm.formData.birthDate\" class=\"form-control\" placeholder=\"Birth Date\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.occupation\" class=\"form-control\" placeholder=\"Position\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <textarea name=\"name\" rows=\"8\" cols=\"100\" ng-model=\"vm.formData.skillSet\"></textarea>\r\n      </div>\r\n\r\n      <button type=\"submit\" ng-click=\"vm.addNewMember(vm.vm.formData)\" class=\"btn btn-default\">Submit</button>\r\n    </form>\r\n\r\n    <div>\r\n        <h4>{{vm.formData.firstName}}</h4>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n\r\n    <form class=\"\" name=\"memberForm\" ng-submit=\"vm.handleSubmit()\">\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.personal.firstName\" class=\"form-control\" placeholder=\"First Name\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.personal.lastName\" class=\"form-control\" placeholder=\"Last Name\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"date\" ng-model=\"vm.formData.personal.birthDate\" class=\"form-control\" placeholder=\"Birth Date\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.personal.education\" class=\"form-control\" placeholder=\"education\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"email\" ng-model=\"vm.formData.corporate.contacts.email\" class=\"form-control\" placeholder=\"Email\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.corporate.contacts.skype\" class=\"form-control\" placeholder=\"Skype\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.corporate.contacts.phone\" class=\"form-control\" placeholder=\"Phone\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.corporate.occupation\" class=\"form-control\" placeholder=\"Position\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.corporate.role\" class=\"form-control\" placeholder=\"Role\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <textarea name=\"name\" rows=\"8\" cols=\"100\" ng-model=\"vm.formData.corporate.skillset\"></textarea>\r\n      </div>\r\n\r\n      <button type=\"submit\" ng-click=\"vm.handleSubmit(vm.formData)\" class=\"btn btn-default\">Submit</button>\r\n    </form>\r\n\r\n    <div>\r\n\r\n    </div>\r\n</div>\r\n"
 
 /***/ }
 /******/ ]);

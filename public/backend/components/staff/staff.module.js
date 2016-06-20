@@ -9,10 +9,12 @@ const staff = angular.module('staff', [])
             $routeProvider
 
                 .when('/staff/addMember', {
-                    template: '<add-member></add-member>'
+                    template: '<add-member></add-member>',
+                    isNew: true
                 })
                 .when('/staff/edit/:id', {
-                    template: '<div>edit</div>'
+                    template: '<div>edit</div>',
+                    isNew: false
                 })
                 .when('/staff/profile/:id', {
                     template: '<profile></profile>'

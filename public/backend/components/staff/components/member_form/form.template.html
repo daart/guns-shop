@@ -1,34 +1,50 @@
 <div class="container">
 
-    <form class="" name="memberForm" ng-submit="vm.addNewMember()">
+    <form class="" name="memberForm" ng-submit="vm.handleSubmit()">
       <div class="form-group">
-        <input type="text" ng-model="vm.formData.firstName" class="form-control" placeholder="First Name">
+        <input type="text" ng-model="vm.formData.personal.firstName" class="form-control" placeholder="First Name">
       </div>
 
       <div class="form-group">
-        <input type="text" ng-model="vm.formData.lastName" class="form-control" placeholder="Last Name">
+        <input type="text" ng-model="vm.formData.personal.lastName" class="form-control" placeholder="Last Name">
       </div>
 
       <div class="form-group">
-        <input type="email" ng-model="vm.formData.email" class="form-control" placeholder="Email">
+        <input type="date" ng-model="vm.formData.personal.birthDate" class="form-control" placeholder="Birth Date">
       </div>
 
       <div class="form-group">
-        <input type="date" ng-model="vm.formData.birthDate" class="form-control" placeholder="Birth Date">
+        <input type="text" ng-model="vm.formData.personal.education" class="form-control" placeholder="education">
       </div>
 
       <div class="form-group">
-        <input type="text" ng-model="vm.formData.occupation" class="form-control" placeholder="Position">
+        <input type="email" ng-model="vm.formData.corporate.contacts.email" class="form-control" placeholder="Email">
       </div>
 
       <div class="form-group">
-          <textarea name="name" rows="8" cols="100" ng-model="vm.formData.skillSet"></textarea>
+        <input type="text" ng-model="vm.formData.corporate.contacts.skype" class="form-control" placeholder="Skype">
       </div>
 
-      <button type="submit" ng-click="vm.addNewMember(vm.vm.formData)" class="btn btn-default">Submit</button>
+      <div class="form-group">
+        <input type="text" ng-model="vm.formData.corporate.contacts.phone" class="form-control" placeholder="Phone">
+      </div>
+
+      <div class="form-group">
+        <input type="text" ng-model="vm.formData.corporate.occupation" class="form-control" placeholder="Position">
+      </div>
+
+      <div class="form-group">
+        <input type="text" ng-model="vm.formData.corporate.role" class="form-control" placeholder="Role">
+      </div>
+
+      <div class="form-group">
+          <textarea name="name" rows="8" cols="100" ng-model="vm.formData.corporate.skillset"></textarea>
+      </div>
+
+      <button type="submit" ng-click="vm.handleSubmit(vm.formData)" class="btn btn-default">Submit</button>
     </form>
 
     <div>
-        <h4>{{vm.formData.firstName}}</h4>
+
     </div>
 </div>

@@ -33,7 +33,6 @@ function getStaffMember(req, res) {
             success: true,
             profile: profile,
             staffRole: db.StaffModel.schema.path('corporate.role').enumValues
-
         });
     });
 }
