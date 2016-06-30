@@ -1,42 +1,56 @@
 import {staffService} from 'shared/services/staff.service';
 
 class memberFormController {
-    constructor(staffService) {
+    constructor($route, staffService) {
 
         this.formData = {};
+        this.isNewModel = $route.current.$$route.isNewModel;
 
         this.handleSubmit = () => {
-            console.log(this.formData, this.formData.corporate.skillset);
+            // console.log();
+
+            if(memberForm.$valid) {
+                console.log('Form is valid: ', this.formData);
+
+                if(this.isNewModel) {
+                    staffService.createStaffMember(_serializeForm());
+                    this.formData = {};
+                    this.memberForm.$setPrestine();
+
+                } else {
+                    staffService.editStaffMember();
+                }
+            }
+
         };
 
-        function _serializeForm() {
+        let _serializeForm = () => {
             return {
                 personal: {
-                    firstName: vm.formData.personal.firstName,
-                    lastName: vm.formData.personal.lastName,
-                    birthDate: vm.formData.personal.birthDate,
-                    education: vm.formData.personal.education
+                    firstName: this.formData.personal.firstName,
+                    lastName: this.formData.personal.lastName,
+                    birthDate: this.formData.personal.birthDate,
+                    education: this.formData.personal.education
                 },
 
                 corporate: {
-                    occupation: vm.formData.corporate.occupation,
-                    role: vm.formData.corporate.role,
+                    occupation: this.formData.corporate.occupation,
+                    role: this.formData.corporate.role,
 
                     contacts: {
-                        email: vm.formData.corporate.contacts.email,
-                        skype: vm.formData.corporate.contacts.skype,
-                        phone: vm.formData.corporate.contacts.phone
-                    },
+                        email: this.formData.corporate.contacts.email,
+                        skype: this.formData.corporate.contacts.skype,
+                        phone: this.formData.corporate.contacts.phone
+                    }
 
-
-                    skillset: vm.formData.corporate.skisllset.split(',')
+                    // skillset: vm.formData.corporate.skisllset
                 }
 
-            }
+            };
         }
     }
 }
 
-memberFormController.$inject = ['staffService'];
+memberFormController.$inject = ['$route', 'staffService'];
 
 export {memberFormController};

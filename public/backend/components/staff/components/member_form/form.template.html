@@ -1,50 +1,93 @@
 <div class="container">
 
-    <form class="" name="memberForm" ng-submit="vm.handleSubmit()">
+    <form class="" name="memberForm" ng-submit="vm.handleSubmit(vm.formData)" novalidate>
       <div class="form-group">
-        <input type="text" ng-model="vm.formData.personal.firstName" class="form-control" placeholder="First Name">
+          <label for="firstName">First Name</label>
+          <input type="text" name="firstName" ng-model="vm.formData.personal.firstName" class="form-control" placeholder="First Name" required>
+          <div class="help-block" ng-show="memberForm.firstName.$invalid && !memberForm.firstName.$prestine">
+              <span ng-message>Please enter your name</span>
+          </div>
       </div>
 
       <div class="form-group">
-        <input type="text" ng-model="vm.formData.personal.lastName" class="form-control" placeholder="Last Name">
+          <label>Lst Name</label>
+          <input type="text" name="lastName" ng-model="vm.formData.personal.lastName" class="form-control" placeholder="Last Name" required="">
+          <div class="help-block" ng-show="memberForm.lastName.$invalid && !memberForm.lastName.$prestine">
+              <span ng-message>Please enter your name</span>
+          </div>
       </div>
 
       <div class="form-group">
-        <input type="date" ng-model="vm.formData.personal.birthDate" class="form-control" placeholder="Birth Date">
+          <label>Birth Date</label>
+          <input type="date" name="birthDate" ng-model="vm.formData.personal.birthDate" class="form-control" placeholder="Birth Date" required="">
+
+          <div class="help-block" ng-show="memberForm.birthDate.$invalid && !memberForm.birthDate.$prestine">
+              <span ng-message>Please enter your name</span>
+          </div>
       </div>
 
       <div class="form-group">
-        <input type="text" ng-model="vm.formData.personal.education" class="form-control" placeholder="education">
+          <label>Education</label>
+          <input type="text" name="education" ng-model="vm.formData.personal.education" class="form-control" placeholder="education">
       </div>
 
       <div class="form-group">
-        <input type="email" ng-model="vm.formData.corporate.contacts.email" class="form-control" placeholder="Email">
+          <label>Email</label>
+          <input type="email" name="email" ng-model="vm.formData.corporate.contacts.email" class="form-control" placeholder="Email">
+          <div class="help-block" ng-show="memberForm.email.$invalid && !memberForm.email.$prestine">
+              <span ng-message>Please enter your name</span>
+          </div>
       </div>
 
       <div class="form-group">
-        <input type="text" ng-model="vm.formData.corporate.contacts.skype" class="form-control" placeholder="Skype">
+          <label>Skype</label>
+          <input type="text" name="skype" ng-model="vm.formData.corporate.contacts.skype" class="form-control" placeholder="Skype">
+          <div class="help-block" ng-show="memberForm.skype.$invalid && !memberForm.skype.$prestine">
+              <span ng-message>Please enter your name</span>
+          </div>
       </div>
 
       <div class="form-group">
-        <input type="text" ng-model="vm.formData.corporate.contacts.phone" class="form-control" placeholder="Phone">
+          <label>Phone</label>
+          <input type="text" name="phone" ng-model="vm.formData.corporate.contacts.phone" class="form-control" placeholder="Phone">
+          <div class="help-block" ng-show="memberForm.phone.$invalid && !memberForm.phone.$prestine">
+              <span ng-message>Please enter your name</span>
+          </div>
       </div>
 
       <div class="form-group">
-        <input type="text" ng-model="vm.formData.corporate.occupation" class="form-control" placeholder="Position">
+          <label>Occupation</label>
+          <input type="text" name="occupation" ng-model="vm.formData.corporate.occupation" class="form-control" placeholder="Position">
+          <div class="help-block" ng-show="memberForm.occupation.$invalid && !memberForm.occupation.$prestine">
+              <span ng-message>Please enter your name</span>
+          </div>
       </div>
 
       <div class="form-group">
-        <input type="text" ng-model="vm.formData.corporate.role" class="form-control" placeholder="Role">
+          <label>Role</label>
+          <input type="text" name="role" ng-model="vm.formData.corporate.role" class="form-control" placeholder="Role">
+          <div class="help-block" ng-show="memberForm.role.$invalid && !memberForm.role.$prestine">
+              <span ng-message>Please enter your name</span>
+          </div>
       </div>
 
       <div class="form-group">
-          <textarea name="name" rows="8" cols="100" ng-model="vm.formData.corporate.skillset"></textarea>
+          <label>Skillset</label><br />
+          <!-- <textarea name="name" name="skillset" rows="8" cols="100" ng-model="vm.formData.corporate.skillset"></textarea> -->
       </div>
 
-      <button type="submit" ng-click="vm.handleSubmit(vm.formData)" class="btn btn-default">Submit</button>
+      <div class="form-group">
+          <button type="submit" class="btn btn-success" disabled="memberForm.$invalid">
+              <span ng-if="isNew">Update</span>
+              <span ng-if="!isNew">Add Member</span>
+          </button>
+      </div>
+
     </form>
 
     <div>
-
+        {{vm.formData}} <br>
+        {{memberForm.$valid}}
     </div>
+
 </div>

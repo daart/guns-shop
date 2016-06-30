@@ -32607,10 +32607,10 @@
 	var staff = _angular2.default.module('staff', []).config(function ($routeProvider) {
 	    $routeProvider.when('/staff/addMember', {
 	        template: '<add-member></add-member>',
-	        isNew: true
+	        isNewModel: true
 	    }).when('/staff/edit/:id', {
 	        template: '<div>edit</div>',
-	        isNew: false
+	        isNewModel: false
 	    }).when('/staff/profile/:id', {
 	        template: '<profile></profile>'
 	    }).when('/staff', {
@@ -32714,8 +32714,8 @@
 
 	    function editStaffMember() {}
 
-	    function createStaffMember() {
-	        return $http.post('/api/staff/addMember');
+	    function createStaffMember(formData) {
+	        return $http.post('/api/staff/addMember', formData);
 	    }
 
 	    return {
@@ -32841,44 +32841,57 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var memberFormController = function memberFormController(staffService) {
+	var memberFormController = function memberFormController($route, staffService) {
 	    var _this = this;
 
 	    _classCallCheck(this, memberFormController);
 
 	    this.formData = {};
+	    this.isNewModel = $route.current.$$route.isNewModel;
 
 	    this.handleSubmit = function () {
-	        console.log(_this.formData, _this.formData.corporate.skillset);
+	        // console.log();
+
+	        if (memberForm.$valid) {
+	            console.log('Form is valid: ', _this.formData);
+
+	            if (_this.isNewModel) {
+	                staffService.createStaffMember(_serializeForm());
+	                _this.formData = {};
+	                _this.memberForm.$setPrestine();
+	            } else {
+	                staffService.editStaffMember();
+	            }
+	        }
 	    };
 
-	    function _serializeForm() {
+	    var _serializeForm = function _serializeForm() {
 	        return {
 	            personal: {
-	                firstName: vm.formData.personal.firstName,
-	                lastName: vm.formData.personal.lastName,
-	                birthDate: vm.formData.personal.birthDate,
-	                education: vm.formData.personal.education
+	                firstName: _this.formData.personal.firstName,
+	                lastName: _this.formData.personal.lastName,
+	                birthDate: _this.formData.personal.birthDate,
+	                education: _this.formData.personal.education
 	            },
 
 	            corporate: {
-	                occupation: vm.formData.corporate.occupation,
-	                role: vm.formData.corporate.role,
+	                occupation: _this.formData.corporate.occupation,
+	                role: _this.formData.corporate.role,
 
 	                contacts: {
-	                    email: vm.formData.corporate.contacts.email,
-	                    skype: vm.formData.corporate.contacts.skype,
-	                    phone: vm.formData.corporate.contacts.phone
-	                },
+	                    email: _this.formData.corporate.contacts.email,
+	                    skype: _this.formData.corporate.contacts.skype,
+	                    phone: _this.formData.corporate.contacts.phone
+	                }
 
-	                skillset: vm.formData.corporate.skisllset.split(',')
+	                // skillset: vm.formData.corporate.skisllset
 	            }
 
 	        };
-	    }
+	    };
 	};
 
-	memberFormController.$inject = ['staffService'];
+	memberFormController.$inject = ['$route', 'staffService'];
 
 	exports.memberFormController = memberFormController;
 
@@ -32886,7 +32899,7 @@
 /* 35 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n\r\n    <form class=\"\" name=\"memberForm\" ng-submit=\"vm.handleSubmit()\">\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.personal.firstName\" class=\"form-control\" placeholder=\"First Name\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.personal.lastName\" class=\"form-control\" placeholder=\"Last Name\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"date\" ng-model=\"vm.formData.personal.birthDate\" class=\"form-control\" placeholder=\"Birth Date\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.personal.education\" class=\"form-control\" placeholder=\"education\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"email\" ng-model=\"vm.formData.corporate.contacts.email\" class=\"form-control\" placeholder=\"Email\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.corporate.contacts.skype\" class=\"form-control\" placeholder=\"Skype\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.corporate.contacts.phone\" class=\"form-control\" placeholder=\"Phone\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.corporate.occupation\" class=\"form-control\" placeholder=\"Position\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n        <input type=\"text\" ng-model=\"vm.formData.corporate.role\" class=\"form-control\" placeholder=\"Role\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <textarea name=\"name\" rows=\"8\" cols=\"100\" ng-model=\"vm.formData.corporate.skillset\"></textarea>\r\n      </div>\r\n\r\n      <button type=\"submit\" ng-click=\"vm.handleSubmit(vm.formData)\" class=\"btn btn-default\">Submit</button>\r\n    </form>\r\n\r\n    <div>\r\n\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n\r\n    <form class=\"\" name=\"memberForm\" ng-submit=\"vm.handleSubmit(vm.formData)\" novalidate>\r\n      <div class=\"form-group\">\r\n          <label for=\"firstName\">First Name</label>\r\n          <input type=\"text\" name=\"firstName\" ng-model=\"vm.formData.personal.firstName\" class=\"form-control\" placeholder=\"First Name\" required>\r\n          <div class=\"help-block\" ng-show=\"memberForm.firstName.$invalid && !memberForm.firstName.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Lst Name</label>\r\n          <input type=\"text\" name=\"lastName\" ng-model=\"vm.formData.personal.lastName\" class=\"form-control\" placeholder=\"Last Name\" required=\"\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.lastName.$invalid && !memberForm.lastName.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Birth Date</label>\r\n          <input type=\"date\" name=\"birthDate\" ng-model=\"vm.formData.personal.birthDate\" class=\"form-control\" placeholder=\"Birth Date\" required=\"\">\r\n\r\n          <div class=\"help-block\" ng-show=\"memberForm.birthDate.$invalid && !memberForm.birthDate.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Education</label>\r\n          <input type=\"text\" name=\"education\" ng-model=\"vm.formData.personal.education\" class=\"form-control\" placeholder=\"education\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Email</label>\r\n          <input type=\"email\" name=\"email\" ng-model=\"vm.formData.corporate.contacts.email\" class=\"form-control\" placeholder=\"Email\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.email.$invalid && !memberForm.email.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Skype</label>\r\n          <input type=\"text\" name=\"skype\" ng-model=\"vm.formData.corporate.contacts.skype\" class=\"form-control\" placeholder=\"Skype\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.skype.$invalid && !memberForm.skype.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Phone</label>\r\n          <input type=\"text\" name=\"phone\" ng-model=\"vm.formData.corporate.contacts.phone\" class=\"form-control\" placeholder=\"Phone\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.phone.$invalid && !memberForm.phone.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Occupation</label>\r\n          <input type=\"text\" name=\"occupation\" ng-model=\"vm.formData.corporate.occupation\" class=\"form-control\" placeholder=\"Position\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.occupation.$invalid && !memberForm.occupation.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Role</label>\r\n          <input type=\"text\" name=\"role\" ng-model=\"vm.formData.corporate.role\" class=\"form-control\" placeholder=\"Role\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.role.$invalid && !memberForm.role.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Skillset</label><br />\r\n          <!-- <textarea name=\"name\" name=\"skillset\" rows=\"8\" cols=\"100\" ng-model=\"vm.formData.corporate.skillset\"></textarea> -->\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <button type=\"submit\" class=\"btn btn-success\" disabled=\"memberForm.$invalid\">\r\n              <span ng-if=\"isNew\">Update</span>\r\n              <span ng-if=\"!isNew\">Add Member</span>\r\n          </button>\r\n      </div>\r\n\r\n    </form>\r\n\r\n    <div>\r\n        {{vm.formData}} <br>\r\n        {{memberForm.$valid}}\r\n    </div>\r\n\r\n</div>\r\n"
 
 /***/ }
 /******/ ]);

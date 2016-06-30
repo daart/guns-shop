@@ -10,11 +10,11 @@ const staff = angular.module('staff', [])
 
                 .when('/staff/addMember', {
                     template: '<add-member></add-member>',
-                    isNew: true
+                    isNewModel: true
                 })
                 .when('/staff/edit/:id', {
                     template: '<div>edit</div>',
-                    isNew: false
+                    isNewModel: false
                 })
                 .when('/staff/profile/:id', {
                     template: '<profile></profile>'

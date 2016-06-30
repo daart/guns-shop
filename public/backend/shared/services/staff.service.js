@@ -16,8 +16,8 @@ const staffService = ($http, $routeParams) => {
 
     }
 
-    function createStaffMember() {
-        return $http.post('/api/staff/addMember')
+    function createStaffMember(formData) {
+        return $http.post('/api/staff/addMember', formData);
     }
 
     return {
