@@ -35,7 +35,7 @@ apiRouter.route('/staff/addMember')
 apiRouter.route('/staff/edit/:id')
     .put(staffAPI.updateStaffMemberProfile);
 
-apiRouter.route('/staff:id')
+apiRouter.route('/staff/delete/:id')
     .delete(staffAPI.deleteStaffMember);
 
 apiRouter.route('/staff')

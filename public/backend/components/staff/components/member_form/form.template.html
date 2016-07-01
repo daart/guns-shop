@@ -1,10 +1,10 @@
 <div class="container">
 
-    <form class="" name="memberForm" ng-submit="vm.handleSubmit(vm.formData)" novalidate>
+    <form class="" name="vm.memberForm" ng-submit="vm.handleSubmit(vm.formData)" novalidate>
       <div class="form-group">
           <label for="firstName">First Name</label>
           <input type="text" name="firstName" ng-model="vm.formData.personal.firstName" class="form-control" placeholder="First Name" required>
-          <div class="help-block" ng-show="memberForm.firstName.$invalid && !memberForm.firstName.$prestine">
+          <div class="help-block" ng-show="vm.memberForm.firstName.$invalid && !vm.memberForm.firstName.$prestine">
               <span ng-message>Please enter your name</span>
           </div>
       </div>
@@ -57,7 +57,7 @@
 
       <div class="form-group">
           <label>Occupation</label>
-          <input type="text" name="occupation" ng-model="vm.formData.corporate.occupation" class="form-control" placeholder="Position">
+          <!-- <input type="text" name="occupation" ng-model="vm.formData.corporate.occupation" class="form-control" placeholder="Position"> -->
           <div class="help-block" ng-show="memberForm.occupation.$invalid && !memberForm.occupation.$prestine">
               <span ng-message>Please enter your name</span>
           </div>
@@ -65,7 +65,7 @@
 
       <div class="form-group">
           <label>Role</label>
-          <input type="text" name="role" ng-model="vm.formData.corporate.role" class="form-control" placeholder="Role">
+          <!-- <input type="text" name="role" ng-model="vm.formData.corporate.role" class="form-control" placeholder="Role"> -->
           <div class="help-block" ng-show="memberForm.role.$invalid && !memberForm.role.$prestine">
               <span ng-message>Please enter your name</span>
           </div>
@@ -77,7 +77,7 @@
       </div>
 
       <div class="form-group">
-          <button type="submit" class="btn btn-success" disabled="memberForm.$invalid">
+          <button type="submit" class="btn btn-success" ng-disabled="vm.memberForm.$invalid">
               <span ng-if="isNew">Update</span>
               <span ng-if="!isNew">Add Member</span>
           </button>

@@ -22,12 +22,12 @@
                 <td>{{staffMember.personal.lastName}}</td>
                 <td>{{staffMember.corporate.occupation}}</td>
                 <td>{{staffMember.corporate.role}}</td>
-                <td><a href="#" class="btn btn-danger btn-sm">Delete</a></td>
-                <td><a href="#" class="btn btn-primary btn-sm">Edit</a></td>
+                <td><button class="btn btn-danger btn-sm" ng-click="vm._deleteStaffMember(staffMember._id)" >Delete</button></td>
+                <td><button class="btn btn-primary btn-sm">Edit</button></td>
             </tr>
         </table>
     </div>
 
     <a href="#/staff/addMember" class="btn btn-md btn-success pull-left">Add new Employee</a>
-    
+
 </div>

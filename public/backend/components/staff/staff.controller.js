@@ -4,14 +4,25 @@ class staffController {
 
     constructor(staffService) {
         this.staff = [];
+        this.staffService = staffService;
 
-        staffService.getAllStaffMembers()
+        this.staffService.getAllStaffMembers()
             .then((res) => {
                 if(res.data.success) {
                     this.staff = res.data.staffData;
                 }
-        });
+            });
+    }
 
+    _deleteStaffMember(id) {
+        this.staffService.deleteStaffMember(id)
+            .then((res) => {
+                if(res.data.success) {
+                    this.staff = this.staff.filter(function (index) {
+                        return index._id !== id;
+                    });
+                }
+            });
     }
 
 }

@@ -1,34 +1,29 @@
-const staffService = ($http, $routeParams) => {
-
-    function getAllStaffMembers() {
-        return $http.get('/api/staff');
+class staffService {
+    constructor($http, $routeParams){
+        this.$http = $http;
+        this.$routeParams = $routeParams;
     }
 
-    function getStaffMember() {
-        return $http.get('/api/staff/profile/' + $routeParams.id);
+    getAllStaffMembers() {
+        return this.$http.get('/api/staff');
     }
 
-    function deleteStaffMember() {
-        return $http.delete()
+    getStaffMember() {
+        return this.$http.get('/api/staff/profile/' + this.$routeParams.id);
     }
 
-    function editStaffMember() {
+    deleteStaffMember(id) {
+        return this.$http.delete('/api/staff/delete/' + id);
+    }
+
+    editStaffMember() {
 
     }
 
-    function createStaffMember(formData) {
-        return $http.post('/api/staff/addMember', formData);
+    createStaffMember(formData) {
+        return this.$http.post('/api/staff/addMember', formData);
     }
-
-    return {
-        getAllStaffMembers,
-        getStaffMember,
-        deleteStaffMember,
-        editStaffMember,
-        createStaffMember
-    };
-
-};
+}
 
 staffService.$inject = ['$http', '$routeParams'];
 
