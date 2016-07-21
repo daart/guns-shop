@@ -71,8 +71,8 @@ function deleteStaffMember(req, res) {
     });
 }
 
-function updateStaffMemberProfile() {
-    db.StaffModel.findByIdAndUpdate(id, {new: true}, function (err, updatedProfile) {
+function updateStaffMemberProfile(req, res) {
+    db.StaffModel.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, updatedProfile) {
         if(err) {
             res.json({
                 success: false,

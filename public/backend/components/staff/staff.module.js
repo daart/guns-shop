@@ -13,7 +13,7 @@ const staff = angular.module('staff', [])
                     isNewModel: true
                 })
                 .when('/staff/edit/:id', {
-                    template: '<div>edit</div>',
+                    template: '<add-member></add-member>',
                     isNewModel: false
                 })
                 .when('/staff/profile/:id', {

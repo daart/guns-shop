@@ -1,9 +1,21 @@
 class memberFormController {
 
-    constructor($route, staffService) {
+    constructor($route, staffService, $routeParams) {
         this.formData = {};
         this.isNewModel = $route.current.$$route.isNewModel;
         this.staffService = staffService;
+        this.$routeParams = $routeParams;
+        
+        if(!this.isNewModel) {
+            this.fetchProfileData(this.$routeParams.id);
+        } 
+    }
+
+    fetchProfileData(id) {
+        this.staffService.getStaffMember(id)
+            .then( (res) => {
+                this.formData = res.data.profile;
+            })
     }
 
     handleSubmit () {
@@ -11,14 +23,13 @@ class memberFormController {
         if(this.memberForm.$valid) {
 
             if(this.isNewModel) {
-                console.log(this.staffService);
 
                 this.staffService.createStaffMember(this._serializeForm());
                 this.formData = {};
                 this.memberForm.$setPristine();
 
             } else {
-                staffService.editStaffMember();
+                this.staffService.editStaffMember(this.$routeParams.id, this._serializeForm());
             }
         }
 
@@ -29,7 +40,7 @@ class memberFormController {
             personal: {
                 firstName: this.formData.personal.firstName,
                 lastName: this.formData.personal.lastName,
-                birthDate: this.formData.personal.birthDate,
+                // birthDate: this.formData.personal.birthDate,
                 education: this.formData.personal.education
             },
 
@@ -41,14 +52,14 @@ class memberFormController {
                     email: this.formData.corporate.contacts.email,
                     skype: this.formData.corporate.contacts.skype,
                     phone: this.formData.corporate.contacts.phone
-                }
+                },
 
-                // skillset: this.formData.corporate.skisllset
+                skillset: this.formData.corporate.skisllset
             }
         };
     }
 }
 
-memberFormController.$inject = ['$route', 'staffService'];
+memberFormController.$inject = ['$route', 'staffService', '$routeParams'];
 
 export {memberFormController};

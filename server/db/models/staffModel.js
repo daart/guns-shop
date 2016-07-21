@@ -14,7 +14,7 @@ var staffMemberSchema = new Schema({
     personal: {
         firstName: {type: String, required: true},
         lastName: {type: String, require: true},
-        birthDate: {type: Date, require: true, default: Date.now },
+        // birthDate: {type: Date, require: true, default: Date.now },
         education: {type: String, default: 'PhD'}
     },
 

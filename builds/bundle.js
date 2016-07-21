@@ -32609,7 +32609,7 @@
 	        template: '<add-member></add-member>',
 	        isNewModel: true
 	    }).when('/staff/edit/:id', {
-	        template: '<div>edit</div>',
+	        template: '<add-member></add-member>',
 	        isNewModel: false
 	    }).when('/staff/profile/:id', {
 	        template: '<profile></profile>'
@@ -32654,7 +32654,7 @@
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content panel panel-default\">\r\n        <!-- Default panel contents -->\r\n        <div class=\"panel-heading\">Panel heading</div>\r\n        <div class=\"panel-body\">\r\n            <p>This is a list of our company's personnel</p>\r\n        </div>\r\n\r\n        <table class=\"table table-striped\">\r\n            <tr>\r\n                <th>id</th>\r\n                <th>First Name</th>\r\n                <th>Last Name</th>\r\n                <th>Occupation</th>\r\n                <th>Branch</th>\r\n                <th></th>\r\n                <th></th>\r\n            </tr>\r\n            <tr ng-repeat=\"staffMember in vm.staff\">\r\n                <td><a href=\"#/staff/profile/{{staffMember._id}}\">{{staffMember._id}}</a></td>\r\n                <td>{{staffMember.personal.firstName}}</td>\r\n                <td>{{staffMember.personal.lastName}}</td>\r\n                <td>{{staffMember.corporate.occupation}}</td>\r\n                <td>{{staffMember.corporate.role}}</td>\r\n                <td><button class=\"btn btn-danger btn-sm\" ng-click=\"vm._deleteStaffMember(staffMember._id)\" >Delete</button></td>\r\n                <td><button class=\"btn btn-primary btn-sm\">Edit</button></td>\r\n            </tr>\r\n        </table>\r\n    </div>\r\n\r\n    <a href=\"#/staff/addMember\" class=\"btn btn-md btn-success pull-left\">Add new Employee</a>\r\n\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"l-staff__content panel panel-default\">\r\n        <!-- Default panel contents -->\r\n        <div class=\"panel-heading\">Panel heading</div>\r\n        <div class=\"panel-body\">\r\n            <p>This is a list of our company's personnel</p>\r\n        </div>\r\n\r\n        <table class=\"table table-striped\">\r\n            <tr>\r\n                <th>id</th>\r\n                <th>First Name</th>\r\n                <th>Last Name</th>\r\n                <th>Occupation</th>\r\n                <th>Branch</th>\r\n                <th></th>\r\n                <th></th>\r\n            </tr>\r\n            <tr ng-repeat=\"staffMember in vm.staff\">\r\n                <td><a href=\"#/staff/profile/{{staffMember._id}}\">{{staffMember._id}}</a></td>\r\n                <td>{{staffMember.personal.firstName}}</td>\r\n                <td>{{staffMember.personal.lastName}}</td>\r\n                <td>{{staffMember.corporate.occupation}}</td>\r\n                <td>{{staffMember.corporate.role}}</td>\r\n                <td><button class=\"btn btn-danger btn-sm\" ng-click=\"vm._deleteStaffMember(staffMember._id)\" >Delete</button></td>\r\n                <td><a href=\"#/staff/edit/{{staffMember._id}}\" class=\"btn btn-primary btn-sm\">Edit</a></td>\r\n            </tr>\r\n        </table>\r\n    </div>\r\n\r\n    <a href=\"#/staff/addMember\" class=\"btn btn-md btn-success pull-left\">Add new Employee</a>\r\n\r\n</div>\r\n"
 
 /***/ },
 /* 28 */
@@ -32685,6 +32685,7 @@
 	        this.staffService.getAllStaffMembers().then(function (res) {
 	            if (res.data.success) {
 	                _this.staff = res.data.staffData;
+	                _this.staffRole = res.data.staffRole;
 	            }
 	        });
 	    }
@@ -32726,11 +32727,10 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var staffService = function () {
-	    function staffService($http, $routeParams) {
+	    function staffService($http) {
 	        _classCallCheck(this, staffService);
 
 	        this.$http = $http;
-	        this.$routeParams = $routeParams;
 	    }
 
 	    _createClass(staffService, [{
@@ -32740,8 +32740,8 @@
 	        }
 	    }, {
 	        key: 'getStaffMember',
-	        value: function getStaffMember() {
-	            return this.$http.get('/api/staff/profile/' + this.$routeParams.id);
+	        value: function getStaffMember(id) {
+	            return this.$http.get('/api/staff/profile/' + id);
 	        }
 	    }, {
 	        key: 'deleteStaffMember',
@@ -32750,7 +32750,9 @@
 	        }
 	    }, {
 	        key: 'editStaffMember',
-	        value: function editStaffMember() {}
+	        value: function editStaffMember(id, formData) {
+	            return this.$http.put('/api/staff/edit/' + id, formData);
+	        }
 	    }, {
 	        key: 'createStaffMember',
 	        value: function createStaffMember(formData) {
@@ -32761,7 +32763,7 @@
 	    return staffService;
 	}();
 
-	staffService.$inject = ['$http', '$routeParams'];
+	staffService.$inject = ['$http'];
 
 	exports.staffService = staffService;
 
@@ -32815,19 +32817,21 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var profileController = function profileController(staffService) {
+	var profileController = function profileController(staffService, $routeParams) {
 	    var _this = this;
 
 	    _classCallCheck(this, profileController);
 
-	    staffService.getStaffMember().then(function (res) {
+	    this.$routeParams = $routeParams;
+	    staffService.getStaffMember(this.$routeParams.id).then(function (res) {
 	        if (res.data.success) {
 	            _this.staffMember = res.data.profile;
+	            // this.staffRole = res.data.staffRole;
 	        }
 	    });
 	};
 
-	profileController.$inject = ['staffService'];
+	profileController.$inject = ['staffService', '$routeParams'];
 
 	exports.profileController = profileController;
 
@@ -32875,28 +32879,41 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var memberFormController = function () {
-	    function memberFormController($route, staffService) {
+	    function memberFormController($route, staffService, $routeParams) {
 	        _classCallCheck(this, memberFormController);
 
 	        this.formData = {};
 	        this.isNewModel = $route.current.$$route.isNewModel;
 	        this.staffService = staffService;
+	        this.$routeParams = $routeParams;
+
+	        if (!this.isNewModel) {
+	            this.fetchProfileData(this.$routeParams.id);
+	        }
 	    }
 
 	    _createClass(memberFormController, [{
+	        key: 'fetchProfileData',
+	        value: function fetchProfileData(id) {
+	            var _this = this;
+
+	            this.staffService.getStaffMember(id).then(function (res) {
+	                _this.formData = res.data.profile;
+	            });
+	        }
+	    }, {
 	        key: 'handleSubmit',
 	        value: function handleSubmit() {
 
 	            if (this.memberForm.$valid) {
 
 	                if (this.isNewModel) {
-	                    console.log(this.staffService);
 
 	                    this.staffService.createStaffMember(this._serializeForm());
 	                    this.formData = {};
 	                    this.memberForm.$setPristine();
 	                } else {
-	                    staffService.editStaffMember();
+	                    this.staffService.editStaffMember(this.$routeParams.id, this._serializeForm());
 	                }
 	            }
 	        }
@@ -32907,7 +32924,7 @@
 	                personal: {
 	                    firstName: this.formData.personal.firstName,
 	                    lastName: this.formData.personal.lastName,
-	                    birthDate: this.formData.personal.birthDate,
+	                    // birthDate: this.formData.personal.birthDate,
 	                    education: this.formData.personal.education
 	                },
 
@@ -32919,9 +32936,9 @@
 	                        email: this.formData.corporate.contacts.email,
 	                        skype: this.formData.corporate.contacts.skype,
 	                        phone: this.formData.corporate.contacts.phone
-	                    }
+	                    },
 
-	                    // skillset: this.formData.corporate.skisllset
+	                    skillset: this.formData.corporate.skisllset
 	                }
 	            };
 	        }
@@ -32930,7 +32947,7 @@
 	    return memberFormController;
 	}();
 
-	memberFormController.$inject = ['$route', 'staffService'];
+	memberFormController.$inject = ['$route', 'staffService', '$routeParams'];
 
 	exports.memberFormController = memberFormController;
 
@@ -32938,7 +32955,7 @@
 /* 35 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n\r\n    <form class=\"\" name=\"vm.memberForm\" ng-submit=\"vm.handleSubmit(vm.formData)\" novalidate>\r\n      <div class=\"form-group\">\r\n          <label for=\"firstName\">First Name</label>\r\n          <input type=\"text\" name=\"firstName\" ng-model=\"vm.formData.personal.firstName\" class=\"form-control\" placeholder=\"First Name\" required>\r\n          <div class=\"help-block\" ng-show=\"vm.memberForm.firstName.$invalid && !vm.memberForm.firstName.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Lst Name</label>\r\n          <input type=\"text\" name=\"lastName\" ng-model=\"vm.formData.personal.lastName\" class=\"form-control\" placeholder=\"Last Name\" required=\"\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.lastName.$invalid && !memberForm.lastName.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Birth Date</label>\r\n          <input type=\"date\" name=\"birthDate\" ng-model=\"vm.formData.personal.birthDate\" class=\"form-control\" placeholder=\"Birth Date\" required=\"\">\r\n\r\n          <div class=\"help-block\" ng-show=\"memberForm.birthDate.$invalid && !memberForm.birthDate.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Education</label>\r\n          <input type=\"text\" name=\"education\" ng-model=\"vm.formData.personal.education\" class=\"form-control\" placeholder=\"education\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Email</label>\r\n          <input type=\"email\" name=\"email\" ng-model=\"vm.formData.corporate.contacts.email\" class=\"form-control\" placeholder=\"Email\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.email.$invalid && !memberForm.email.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Skype</label>\r\n          <input type=\"text\" name=\"skype\" ng-model=\"vm.formData.corporate.contacts.skype\" class=\"form-control\" placeholder=\"Skype\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.skype.$invalid && !memberForm.skype.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Phone</label>\r\n          <input type=\"text\" name=\"phone\" ng-model=\"vm.formData.corporate.contacts.phone\" class=\"form-control\" placeholder=\"Phone\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.phone.$invalid && !memberForm.phone.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Occupation</label>\r\n          <!-- <input type=\"text\" name=\"occupation\" ng-model=\"vm.formData.corporate.occupation\" class=\"form-control\" placeholder=\"Position\"> -->\r\n          <div class=\"help-block\" ng-show=\"memberForm.occupation.$invalid && !memberForm.occupation.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Role</label>\r\n          <!-- <input type=\"text\" name=\"role\" ng-model=\"vm.formData.corporate.role\" class=\"form-control\" placeholder=\"Role\"> -->\r\n          <div class=\"help-block\" ng-show=\"memberForm.role.$invalid && !memberForm.role.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Skillset</label><br />\r\n          <!-- <textarea name=\"name\" name=\"skillset\" rows=\"8\" cols=\"100\" ng-model=\"vm.formData.corporate.skillset\"></textarea> -->\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"vm.memberForm.$invalid\">\r\n              <span ng-if=\"isNew\">Update</span>\r\n              <span ng-if=\"!isNew\">Add Member</span>\r\n          </button>\r\n      </div>\r\n\r\n    </form>\r\n\r\n    <div>\r\n        {{vm.formData}} <br>\r\n        {{memberForm.$valid}}\r\n    </div>\r\n\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n\r\n    <form class=\"\" name=\"vm.memberForm\" ng-submit=\"vm.handleSubmit(vm.formData)\" novalidate>\r\n      <div class=\"form-group\">\r\n          <label for=\"firstName\">First Name</label>\r\n          <input type=\"text\" name=\"firstName\" ng-model=\"vm.formData.personal.firstName\" class=\"form-control\" placeholder=\"First Name\" required>\r\n          <div class=\"help-block\" ng-show=\"vm.memberForm.firstName.$invalid && !vm.memberForm.firstName.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Lst Name</label>\r\n          <input type=\"text\" name=\"lastName\" ng-model=\"vm.formData.personal.lastName\" class=\"form-control\" placeholder=\"Last Name\" required=\"\">\r\n          <div class=\"help-block\" ng-show=\"vm.memberForm.lastName.$invalid && !vm.memberForm.lastName.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n<!--       <div class=\"form-group\">\r\n          <label>Birth Date</label>\r\n          <input type=\"date\" name=\"birthDate\" ng-model=\"vm.formData.personal.birthDate\" class=\"form-control\" placeholder=\"Birth Date\" required=\"\">\r\n\r\n          <div class=\"help-block\" ng-show=\"vm.memberForm.birthDate.$invalid && !vm.memberForm.birthDate.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div> -->\r\n\r\n      <div class=\"form-group\">\r\n          <label>Education</label>\r\n          <input type=\"text\" name=\"education\" ng-model=\"vm.formData.personal.education\" class=\"form-control\" placeholder=\"education\">\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Email</label>\r\n          <input type=\"email\" name=\"email\" ng-model=\"vm.formData.corporate.contacts.email\" class=\"form-control\" placeholder=\"Email\">\r\n          <div class=\"help-block\" ng-show=\"vm.memberForm.email.$invalid && !vm.memberForm.email.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Skype</label>\r\n          <input type=\"text\" name=\"skype\" ng-model=\"vm.formData.corporate.contacts.skype\" class=\"form-control\" placeholder=\"Skype\">\r\n          <div class=\"help-block\" ng-show=\"vm.memberForm.skype.$invalid && !vm.memberForm.skype.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Phone</label>\r\n          <input type=\"text\" name=\"phone\" ng-model=\"vm.formData.corporate.contacts.phone\" class=\"form-control\" placeholder=\"Phone\">\r\n          <div class=\"help-block\" ng-show=\"memberForm.phone.$invalid && !memberForm.phone.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Occupation</label>\r\n          <!-- <input type=\"text\" name=\"occupation\" ng-model=\"vm.formData.corporate.occupation\" class=\"form-control\" placeholder=\"Position\"> -->\r\n          <div class=\"help-block\" ng-show=\"memberForm.occupation.$invalid && !memberForm.occupation.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Role</label>\r\n          <!-- <input type=\"text\" name=\"role\" ng-model=\"vm.formData.corporate.role\" class=\"form-control\" placeholder=\"Role\"> -->\r\n          <div class=\"help-block\" ng-show=\"memberForm.role.$invalid && !memberForm.role.$prestine\">\r\n              <span ng-message>Please enter your name</span>\r\n          </div>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <label>Skillset</label><br />\r\n          <textarea name=\"name\" name=\"skillset\" rows=\"8\" cols=\"100\" ng-model=\"vm.formData.corporate.skillset\"></textarea>\r\n      </div>\r\n\r\n      <div class=\"form-group\">\r\n          <button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"vm.memberForm.$invalid\">\r\n              <span ng-if=\"isNew\">Update</span>\r\n              <span ng-if=\"!isNew\">Add Member</span>\r\n          </button>\r\n      </div>\r\n\r\n    </form>\r\n\r\n    <div>\r\n        {{vm.formData}} <br>\r\n        {{memberForm.$valid}}\r\n    </div>\r\n\r\n</div>\r\n"
 
 /***/ }
 /******/ ]);

@@ -23,7 +23,7 @@
                 <td>{{staffMember.corporate.occupation}}</td>
                 <td>{{staffMember.corporate.role}}</td>
                 <td><button class="btn btn-danger btn-sm" ng-click="vm._deleteStaffMember(staffMember._id)" >Delete</button></td>
-                <td><button class="btn btn-primary btn-sm">Edit</button></td>
+                <td><a href="#/staff/edit/{{staffMember._id}}" class="btn btn-primary btn-sm">Edit</a></td>
             </tr>
         </table>
     </div>

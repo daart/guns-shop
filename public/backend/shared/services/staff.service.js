@@ -1,30 +1,30 @@
 class staffService {
-    constructor($http, $routeParams){
+    constructor($http){
         this.$http = $http;
-        this.$routeParams = $routeParams;
     }
 
     getAllStaffMembers() {
         return this.$http.get('/api/staff');
     }
 
-    getStaffMember() {
-        return this.$http.get('/api/staff/profile/' + this.$routeParams.id);
+    getStaffMember(id) {
+        return this.$http.get('/api/staff/profile/' + id);
     }
 
     deleteStaffMember(id) {
         return this.$http.delete('/api/staff/delete/' + id);
     }
 
-    editStaffMember() {
-
+    editStaffMember(id, formData) {
+        return this.$http.put('/api/staff/edit/' + id, formData);
     }
 
     createStaffMember(formData) {
         return this.$http.post('/api/staff/addMember', formData);
     }
+
 }
 
-staffService.$inject = ['$http', '$routeParams'];
+staffService.$inject = ['$http'];
 
 export {staffService};

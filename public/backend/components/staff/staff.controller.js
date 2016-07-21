@@ -10,6 +10,7 @@ class staffController {
             .then((res) => {
                 if(res.data.success) {
                     this.staff = res.data.staffData;
+                    this.staffRole = res.data.staffRole;
                 }
             });
     }
